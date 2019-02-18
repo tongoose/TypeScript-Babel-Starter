@@ -1,12 +1,14 @@
-# TypeScript-Babel-Starter
+# Simple `mongoose` + `tongoose` + `typescript` + `babel` starter app
+
+## Learn how to make one yourself @ [/tongoose/tongoose](https://github.com/tongoose/tongoose)
+
+### Forked from [/Microsoft/TypeScript-Babel-Starter](https://github.com/Microsoft/TypeScript-Babel-Starter)
 
 # What is this?
 
-This is a small sample repository that uses Babel to transform TypeScript to plain JavaScript, and uses TypeScript for type-checking.
-This README will also explain step-by-step how you can set up this repository so you can understand how each component fits together.
+This is a small sample repository that uses Babel to transform TypeScript to plain JavaScript, and uses TypeScript for type-checking. This README will also explain step-by-step how you can set up this repository so you can understand how each component fits together.
 
-For simplicity, we've used `babel-cli` with a bare-bones TypeScript setup, but we'll also demonstrate integration with JSX/React, as well as adding bundlers into the mix.
-Specifically, we'll show off integration with Webpack for if you're deploying an application, and Rollup for if you're producing a library.
+For simplicity, we've used `babel-cli` with a bare-bones TypeScript setup, but we'll also demonstrate integration with JSX/React, as well as adding bundlers into the mix. Specifically, we'll show off integration with Webpack for if you're deploying an application, and Rollup for if you're producing a library.
 
 # How do I use it?
 
@@ -66,8 +68,7 @@ Then run
 tsc --init --declaration --allowSyntheticDefaultImports --target esnext --outDir lib
 ```
 
-**Note:** TypeScript also provides a `--declarationDir` option which specifies an output directory for generated declaration files (`.d.ts` files).
-For our uses where `--emitDeclarationOnly` is turned on, `--outDir` works equivalently.
+**Note:** TypeScript also provides a `--declarationDir` option which specifies an output directory for generated declaration files (`.d.ts` files). For our uses where `--emitDeclarationOnly` is turned on, `--outDir` works equivalently.
 
 ## Create your `.babelrc`
 
@@ -75,14 +76,8 @@ Then copy the `.babelrc` in this repo, or the below:
 
 ```json
 {
-    "presets": [
-        "@babel/env",
-        "@babel/typescript"
-    ],
-    "plugins": [
-        "@babel/proposal-class-properties",
-        "@babel/proposal-object-rest-spread"
-    ]
+	"presets": ["@babel/env", "@babel/typescript"],
+	"plugins": ["@babel/proposal-class-properties", "@babel/proposal-object-rest-spread"]
 }
 ```
 
@@ -103,6 +98,7 @@ Add the following to the `"scripts"` section of your `package.json`
 # How do I change it?
 
 ## Using JSX (and React)
+
 > Full example available [**here**](https://github.com/a-tarasyuk/react-webpack-typescript-babel)
 
 ### Install your dependencies
@@ -124,11 +120,10 @@ Update your `tsconfig.json` to set `"jsx"` to `"react"`.
 
 ### Use a `.tsx` file
 
-Make sure that any files that contain JSX use the `.tsx` extension.
-To get going quickly, just rename `src/index.ts` to `src/index.tsx`, and add the following lines to the bottom:
+Make sure that any files that contain JSX use the `.tsx` extension. To get going quickly, just rename `src/index.ts` to `src/index.tsx`, and add the following lines to the bottom:
 
 ```ts
-import React from 'react';
+import React from "react";
 export let z = <div>Hello world!</div>;
 ```
 
@@ -147,26 +142,28 @@ npm install --save-dev webpack webpack-cli babel-loader@8.0.4
 Create a `webpack.config.js` at the root of this project with the following contents:
 
 ```js
-var path = require('path');
+var path = require("path");
 
 module.exports = {
-    // Change to your "entry-point".
-    entry: './src/index',
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'app.bundle.js'
-    },
-    resolve: {
-        extensions: ['.ts', '.tsx', '.js', '.json']
-    },
-    module: {
-        rules: [{
-            // Include ts, tsx, js, and jsx files.
-            test: /\.(ts|js)x?$/,
-            exclude: /node_modules/,
-            loader: 'babel-loader',
-        }],
-    }
+	// Change to your "entry-point".
+	entry: "./src/index",
+	output: {
+		path: path.resolve(__dirname, "dist"),
+		filename: "app.bundle.js",
+	},
+	resolve: {
+		extensions: [".ts", ".tsx", ".js", ".json"],
+	},
+	module: {
+		rules: [
+			{
+				// Include ts, tsx, js, and jsx files.
+				test: /\.(ts|js)x?$/,
+				exclude: /node_modules/,
+				loader: "babel-loader",
+			},
+		],
+	},
 };
 ```
 
@@ -201,51 +198,52 @@ npm install --save-dev rollup rollup-plugin-babel@latest rollup-plugin-node-reso
 Create a `rollup.config.js` at the root of this project with the following contents:
 
 ```js
-import commonjs from 'rollup-plugin-commonjs';
-import resolve from 'rollup-plugin-node-resolve';
-import babel from 'rollup-plugin-babel';
-import pkg from './package.json';
+import commonjs from "rollup-plugin-commonjs";
+import resolve from "rollup-plugin-node-resolve";
+import babel from "rollup-plugin-babel";
+import pkg from "./package.json";
 
-const extensions = [
-  '.js', '.jsx', '.ts', '.tsx',
-];
+const extensions = [".js", ".jsx", ".ts", ".tsx"];
 
-const name = 'RollupTypeScriptBabel';
+const name = "RollupTypeScriptBabel";
 
 export default {
-  input: './src/index.ts',
+	input: "./src/index.ts",
 
-  // Specify here external modules which you don't want to include in your bundle (for instance: 'lodash', 'moment' etc.)
-  // https://rollupjs.org/guide/en#external-e-external
-  external: [],
+	// Specify here external modules which you don't want to include in your bundle (for instance: 'lodash', 'moment' etc.)
+	// https://rollupjs.org/guide/en#external-e-external
+	external: [],
 
-  plugins: [
-    // Allows node_modules resolution
-    resolve({ extensions }),
+	plugins: [
+		// Allows node_modules resolution
+		resolve({ extensions }),
 
-    // Allow bundling cjs modules. Rollup doesn't understand cjs
-    commonjs(),
+		// Allow bundling cjs modules. Rollup doesn't understand cjs
+		commonjs(),
 
-    // Compile TypeScript/JavaScript files
-    babel({ extensions, include: ['src/**/*'] }),
-  ],
+		// Compile TypeScript/JavaScript files
+		babel({ extensions, include: ["src/**/*"] }),
+	],
 
-  output: [{
-    file: pkg.main,
-    format: 'cjs',
-  }, {
-    file: pkg.module,
-    format: 'es',
-  }, {
-    file: pkg.browser,
-    format: 'iife',
-    name,
+	output: [
+		{
+			file: pkg.main,
+			format: "cjs",
+		},
+		{
+			file: pkg.module,
+			format: "es",
+		},
+		{
+			file: pkg.browser,
+			format: "iife",
+			name,
 
-    // https://rollupjs.org/guide/en#output-globals-g-globals
-    globals: {},
-  }],
+			// https://rollupjs.org/guide/en#output-globals-g-globals
+			globals: {},
+		},
+	],
 };
-
 ```
 
 ### Create a build task
