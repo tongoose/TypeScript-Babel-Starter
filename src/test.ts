@@ -1,5 +1,5 @@
 // src/test.ts
-import User from "./models/User";
+import { User } from "./models/User";
 
 const user = new User({});
 

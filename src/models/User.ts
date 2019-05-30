@@ -11,4 +11,4 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model<IUserModel>("User", UserSchema, "users");
 
-export = User;
+export { User };
