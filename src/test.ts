@@ -6,3 +6,6 @@ const user = new User({});
 // user.email;
 // user.username;
 // user.password;
+
+console.log("Created user", user);
+
